@@ -1,5 +1,5 @@
 // 📌 ตัวแปรเก็บเส้นทางเมนู
-const routes = [
+let routes = [
   {
     path: "/",
     name: "home",
@@ -51,11 +51,29 @@ const routes = [
   },
 ];
 
+// ตรวจสอบว่า root มีค่าเริ่มต้นที่ถูกต้อง และไม่มี `/` ซ้ำซ้อน
+const root = "/tailwind".replace(/\/$/, ""); // ตัด `/` ท้ายสุดออกถ้ามี
+
+if (root !== "/") {
+  routes = routes.map((route) => {
+    let normalizedPath = route.path.replace(/^\/+/, ""); // ตัด `/` ที่ขึ้นต้นออก
+    return {
+      ...route,
+      path: `${root}/${normalizedPath}`, // ป้องกัน `/` ซ้ำซ้อน
+    };
+  });
+}
+
 const router = (_path) => {
-  if (!_path) {
-    console.warn("❌ ไม่พบ path");
+  if (typeof _path !== "string" || !_path.trim()) {
+    console.warn("❌ ไม่พบ path หรือ path ไม่ถูกต้อง");
     return false;
   }
-  const path = _path === "/" ? "/tailwind/" : `/tailwind${_path}`;
-  return (window.location.href = path);
+
+  let normalizedPath = _path.replace(/^\/+/, ""); // ตัด `/` ที่ขึ้นต้นออก
+  const newPath = normalizedPath === "" ? root : `${root}/${normalizedPath}`;
+
+  console.log(`🔄 กำลังนำทางไปที่: ${newPath}`);
+  window.location.href = newPath;
+  return true;
 };
