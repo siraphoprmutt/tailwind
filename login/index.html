@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Login</title>
+
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+
+    <!-- FontAwesome (Icons) -->
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css"
+      crossorigin="anonymous"
+      referrerpolicy="no-referrer"
+    />
+
+    <!-- Load JavaScript -->
+    <script src="../js/utils.js"></script>
+    <script src="../js/routes.js"></script>
+  </head>
+
+  <body
+    class="h-screen flex items-center justify-center bg-gray-100 text-gray-800"
+  >
+    <div class="w-full max-w-md p-8 space-y-6 bg-white shadow-lg rounded-lg">
+      <!-- Logo & Title -->
+      <div class="text-center">
+        <img
+          src="https://i.pravatar.cc/100?img=3"
+          alt="Avatar"
+          class="mx-auto w-16 h-16 rounded-full shadow"
+        />
+        <h2 class="text-2xl font-bold text-gray-700 mt-2">Welcome Back</h2>
+        <p class="text-gray-500">Login to access your account</p>
+      </div>
+
+      <!-- ✅ Login Form -->
+      <form onsubmit="handleLogin(event)" class="space-y-4">
+        <div>
+          <label for="username" class="block text-sm font-medium text-gray-700"
+            >Username or Email</label
+          >
+          <input
+            type="text"
+            id="username"
+            name="username"
+            value="admin"
+            required
+            class="w-full p-3 border rounded-md shadow-sm focus:border-blue-500 focus:ring focus:ring-blue-300"
+          />
+        </div>
+        <div>
+          <label for="password" class="block text-sm font-medium text-gray-700"
+            >Password</label
+          >
+          <input
+            type="password"
+            id="password"
+            name="password"
+            value="admin"
+            required
+            class="w-full p-3 border rounded-md shadow-sm focus:border-blue-500 focus:ring focus:ring-blue-300"
+          />
+        </div>
+
+        <!-- ✅ Login Button -->
+        <button
+          type="submit"
+          class="w-full bg-blue-500 text-white py-2 rounded-md font-semibold hover:bg-blue-600 transition duration-300"
+        >
+          <i class="fas fa-sign-in-alt mr-2"></i> Login
+        </button>
+      </form>
+
+      <!-- ✅ Links -->
+      <div class="text-center">
+        <p class="text-sm text-gray-500">
+          Don't have an account?
+          <a
+            href="/register"
+            class="text-blue-500 font-semibold hover:underline"
+            >Register</a
+          >
+        </p>
+        <p class="text-sm text-gray-500">
+          Forgot password?
+          <a
+            href="/forgot-password"
+            class="text-blue-500 font-semibold hover:underline"
+            >Reset here</a
+          >
+        </p>
+      </div>
+    </div>
+
+    <!-- ✅ Load JavaScript -->
+    <script src="../js/auth.js"></script>
+    <script src="../js/sidebar.js"></script>
+    <script src="../js/main.js"></script>
+    <script>
+      const handleLogin = async (event) => {
+        event.preventDefault();
+        const formValue = Object.fromEntries(new FormData(event.target));
+        console.log("🔑 Logging in...", formValue);
+        if (formValue.username === "admin" && formValue.password === "admin") {
+          console.log("🚀 Login Successful!");
+          localStorage.setItem("jwtToken", fakeUser.token);
+          window.location.href = "/"; // Redirect ไปหน้าหลัก
+        } else {
+          alert("❌ Invalid username or password");
+        }
+      };
+    </script>
+  </body>
+</html>

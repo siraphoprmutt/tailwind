@@ -1,0 +1,182 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Register</title>
+
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+
+    <!-- FontAwesome (Icons) -->
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css"
+      crossorigin="anonymous"
+      referrerpolicy="no-referrer"
+    />
+
+    <!-- Load JavaScript -->
+    <script src="../js/utils.js"></script>
+    <script src="../js/routes.js"></script>
+  </head>
+
+  <body
+    class="min-h-screen flex items-center justify-center bg-gray-100 text-gray-800"
+  >
+    <div
+      class="w-full max-w-sm md:max-w-lg p-8 md:p-10 bg-white shadow-xl rounded-lg space-y-6"
+    >
+      <!-- Logo & Title -->
+      <div class="text-center">
+        <img
+          src="https://i.pravatar.cc/100?img=5"
+          alt="Avatar"
+          class="mx-auto w-16 h-16 rounded-full shadow"
+        />
+        <h2 class="text-2xl md:text-3xl font-bold text-gray-700 mt-4">
+          Create Your Account
+        </h2>
+        <p class="text-gray-500 text-sm">Sign up to get started</p>
+      </div>
+
+      <!-- ✅ Register Form -->
+      <form onsubmit="handleRegister(event)" class="space-y-4">
+        <!-- ✅ First Name & Last Name -->
+        <div class="flex flex-col md:flex-row gap-4">
+          <div class="w-full md:w-1/2">
+            <label
+              for="firstname"
+              class="block text-sm font-medium text-gray-700"
+              >First Name</label
+            >
+            <input
+              type="text"
+              id="firstname"
+              name="firstname"
+              required
+              class="w-full p-3 border rounded-md shadow-sm focus:border-blue-500 focus:ring focus:ring-blue-300"
+            />
+          </div>
+          <div class="w-full md:w-1/2">
+            <label
+              for="lastname"
+              class="block text-sm font-medium text-gray-700"
+              >Last Name</label
+            >
+            <input
+              type="text"
+              id="lastname"
+              name="lastname"
+              required
+              class="w-full p-3 border rounded-md shadow-sm focus:border-blue-500 focus:ring focus:ring-blue-300"
+            />
+          </div>
+        </div>
+
+        <!-- ✅ Email -->
+        <div>
+          <label for="email" class="block text-sm font-medium text-gray-700"
+            >Email</label
+          >
+          <input
+            type="email"
+            id="email"
+            name="email"
+            required
+            class="w-full p-3 border rounded-md shadow-sm focus:border-blue-500 focus:ring focus:ring-blue-300"
+          />
+        </div>
+
+        <!-- ✅ Username -->
+        <div>
+          <label for="username" class="block text-sm font-medium text-gray-700"
+            >Username</label
+          >
+          <input
+            type="text"
+            id="username"
+            name="username"
+            required
+            class="w-full p-3 border rounded-md shadow-sm focus:border-blue-500 focus:ring focus:ring-blue-300"
+          />
+        </div>
+
+        <!-- ✅ Password & Confirm Password -->
+        <div class="flex flex-col md:flex-row gap-4">
+          <div class="w-full md:w-1/2">
+            <label
+              for="password"
+              class="block text-sm font-medium text-gray-700"
+              >Password</label
+            >
+            <input
+              type="password"
+              id="password"
+              name="password"
+              required
+              class="w-full p-3 border rounded-md shadow-sm focus:border-blue-500 focus:ring focus:ring-blue-300"
+            />
+          </div>
+          <div class="w-full md:w-1/2">
+            <label
+              for="confirm-password"
+              class="block text-sm font-medium text-gray-700"
+              >Confirm Password</label
+            >
+            <input
+              type="password"
+              id="confirm-password"
+              name="confirm-password"
+              required
+              class="w-full p-3 border rounded-md shadow-sm focus:border-blue-500 focus:ring focus:ring-blue-300"
+            />
+          </div>
+        </div>
+
+        <!-- ✅ Register Button -->
+        <button
+          type="submit"
+          class="w-full bg-blue-500 text-white py-3 rounded-md font-semibold hover:bg-blue-600 transition duration-300"
+        >
+          <i class="fas fa-user-plus mr-2"></i> Register
+        </button>
+      </form>
+
+      <!-- ✅ Links -->
+      <div class="text-center">
+        <p class="text-sm text-gray-500">
+          Already have an account?
+          <a href="/login" class="text-blue-500 font-semibold hover:underline"
+            >Login</a
+          >
+        </p>
+      </div>
+    </div>
+
+    <!-- ✅ JavaScript -->
+    <script>
+      const handleRegister = async (event) => {
+        event.preventDefault();
+        const formValue = Object.fromEntries(new FormData(event.target));
+
+        if (formValue.password !== formValue["confirm-password"]) {
+          alert("❌ Passwords do not match!");
+          return;
+        }
+
+        console.log("✅ Registering user...", formValue);
+
+        const payload = {
+          ...formValue,
+          avatar: "https://i.pravatar.cc/100?img=5",
+          roles: ["user"],
+        };
+        const token = await signJwt(payload);
+        localStorage.setItem("jwtToken", token);
+        alert("🎉 Registration Successful!");
+        window.location.href = "/";
+      };
+    </script>
+  </body>
+</html>
