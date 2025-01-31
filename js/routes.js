@@ -51,6 +51,11 @@ const routes = [
   },
 ];
 
-const router = (path) => {
+const router = (_path) => {
+  if (!_path) {
+    console.warn("❌ ไม่พบ path");
+    return false;
+  }
+  const path = _path === "/" ? "/tailwind/" : `/tailwind${_path}`;
   return (window.location.href = path);
 };

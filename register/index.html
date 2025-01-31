@@ -147,7 +147,7 @@
       <div class="text-center">
         <p class="text-sm text-gray-500">
           Already have an account?
-          <a href="/login" class="text-blue-500 font-semibold hover:underline"
+          <a href="/tailwind/login/" class="text-blue-500 font-semibold hover:underline"
             >Login</a
           >
         </p>
@@ -175,7 +175,7 @@
         const token = await signJwt(payload);
         localStorage.setItem("jwtToken", token);
         alert("🎉 Registration Successful!");
-        window.location.href = "/";
+        window.location.href = "/tailwind/";
       };
     </script>
   </body>

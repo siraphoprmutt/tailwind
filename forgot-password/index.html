@@ -66,12 +66,14 @@
         <p class="text-sm text-gray-500">
           Don't have an account?
           <a
-            href="/register"
+            href="/tailwind/register/"
             class="text-blue-500 font-semibold hover:underline"
             >Register</a
           >
           Or
-          <a href="/login" class="text-blue-500 font-semibold hover:underline"
+          <a
+            href="/tailwind/login/"
+            class="text-blue-500 font-semibold hover:underline"
             >Login</a
           >
         </p>
@@ -89,7 +91,7 @@
         console.log("🔑 Logging in...", formValue);
         if (formValue.email) {
           alert("🎉 Password Reset Successful!");
-          window.location.href = "/login/";
+          window.location.href = "/tailwind/login/";
         }
       };
     </script>
